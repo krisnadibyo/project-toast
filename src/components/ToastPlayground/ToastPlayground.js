@@ -3,15 +3,22 @@ import React from 'react';
 import Button from '../Button';
 
 import styles from './ToastPlayground.module.css';
+import Toast from '../Toast/Toast';
 
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
 function ToastPlayground() {
   const [message, setMessage] = React.useState("");
-  const [type, setType] = React.useState("");
+  const [type, setType] = React.useState("notice");
+  const [isToastShown, setIsToastShown] = React.useState(false)
 
-  const handleClickPopup = () => {
-    window.alert(`message= ${message}, type= ${type}`);
+  const handleClickToast = () => {
+    // window.alert(`message= ${message}, type= ${type}`);
+    setIsToastShown(true)
+  }
+
+  const handleDismissToast = () => {
+    setIsToastShown(false)
   }
 
   return (
@@ -20,6 +27,8 @@ function ToastPlayground() {
         <img alt="Cute toast mascot" src="/toast.png" />
         <h1>Toast Playground</h1>
       </header>
+
+      {isToastShown && (<Toast variant={type} message={message} dismiss={handleDismissToast} />)}
 
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
@@ -47,14 +56,17 @@ function ToastPlayground() {
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
             {VARIANT_OPTIONS.map((variant) => (
-              <label htmlFor={`variant-${variant}`}>
+              <label 
+                key={`variant-${variant}`}
+                htmlFor={`variant-${variant}`}>
                 <input
                   id={`variant-${variant}`}
-                  key={`variant-${variant}`}
                   type="radio"
                   name="variant-type"
                   value={variant}
+                  checked={type === variant}
                   onChange={(event) => {
+                    
                     setType(event.target.value)
                   }}
                 />
@@ -70,7 +82,7 @@ function ToastPlayground() {
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
             <Button
-              onClick={handleClickPopup}
+              onClick={handleClickToast}
             >Pop Toast!</Button>
           </div>
         </div>
