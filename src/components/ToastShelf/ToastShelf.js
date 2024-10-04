@@ -2,16 +2,12 @@ import React from 'react';
 
 import Toast from '../Toast';
 import styles from './ToastShelf.module.css';
+import { ToastContext } from '../ToastProvider/ToastProvider';
 
-function ToastShelf({ data, setData }) {
+
+function ToastShelf() {
   const elmtId = React.useId()
-  console.log({data})
-
-  const handleDismiss = (index) => {
-    const nextData = [...data];
-    nextData.splice(index,1);
-    setData(nextData)
-  }
+  const {toastData: data } = React.useContext(ToastContext)
 
   return (
     <ol className={styles.wrapper}>
@@ -20,7 +16,7 @@ function ToastShelf({ data, setData }) {
           key={`${elmtId}-${i}`}
           className={styles.toastWrapper}
         >
-          <Toast index={i} variant={variant} dismiss={handleDismiss}>{message}</Toast>
+          <Toast index={i} variant={variant}>{message}</Toast>
         </li>
       )})}
       

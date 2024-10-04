@@ -4,23 +4,20 @@ import Button from '../Button';
 
 import styles from './ToastPlayground.module.css';
 import ToastShelf from '../ToastShelf/ToastShelf';
+import { ToastContext } from '../ToastProvider/ToastProvider';
 
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
 function ToastPlayground() {
   const [message, setMessage] = React.useState("");
   const [variant, setVariant] = React.useState("notice");
-  const [toastData, setToastData] = React.useState([])
+
+  const { addToast } = React.useContext(ToastContext)
 
 
   const onSubmitToast = (event) => {
     event.preventDefault();
-    const nextToastData = [...toastData];
-    nextToastData.push({
-      message,
-      variant,
-    })
-    setToastData(nextToastData)
+    addToast({ message, variant })
     setMessage("")
     setVariant("notice")
   };
@@ -31,7 +28,7 @@ function ToastPlayground() {
         <img alt="Cute toast mascot" src="/toast.png" />
         <h1>Toast Playground</h1>
       </header>
-      <ToastShelf data={toastData} setData={setToastData}/>
+      <ToastShelf />
 
       <form 
         className={styles.controlsWrapper}
