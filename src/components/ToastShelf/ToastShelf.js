@@ -7,17 +7,7 @@ import { ToastContext } from '../ToastProvider/ToastProvider';
 
 function ToastShelf() {
   const elmtId = React.useId()
-  const {toastData: data, removeAllToast } = React.useContext(ToastContext)
-
-  React.useEffect(() => {
-    function handleKeyDown(event) {
-      if (event.code === 'Escape') {
-        removeAllToast()
-      }
-    }
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {window.removeEventListener('keydown', handleKeyDown)}
-  },[removeAllToast]);
+  const {toastData: data } = React.useContext(ToastContext)
 
   return (
     <ol 
