@@ -12,7 +12,7 @@ function ToastPlayground() {
   const [message, setMessage] = React.useState("");
   const [variant, setVariant] = React.useState("notice");
 
-  const { addToast } = React.useContext(ToastContext)
+  const { toastData, addToast } = React.useContext(ToastContext)
 
 
   const onSubmitToast = (event) => {
@@ -28,7 +28,7 @@ function ToastPlayground() {
         <img alt="Cute toast mascot" src="/toast.png" />
         <h1>Toast Playground</h1>
       </header>
-      <ToastShelf />
+      {toastData?.length > 0 && <ToastShelf />}
 
       <form 
         className={styles.controlsWrapper}

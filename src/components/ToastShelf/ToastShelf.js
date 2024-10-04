@@ -8,7 +8,7 @@ import { ToastContext } from '../ToastProvider/ToastProvider';
 function ToastShelf() {
   const elmtId = React.useId()
   const {toastData: data, removeAllToast } = React.useContext(ToastContext)
-  
+
   React.useEffect(() => {
     function handleKeyDown(event) {
       if (event.code === 'Escape') {
@@ -20,7 +20,12 @@ function ToastShelf() {
   },[removeAllToast]);
 
   return (
-    <ol className={styles.wrapper}>
+    <ol 
+      className={styles.wrapper}
+      role="region"
+      aria-live="polite"
+      aria-label="Notification"
+    >
       {data?.map(({message, variant},i) => {return( 
         <li 
           key={`${elmtId}-${i}`}
